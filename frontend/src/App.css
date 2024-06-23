@@ -1,0 +1,6 @@
+html,
+body,
+.app,
+.app>div {
+    min-height: 100vh
+}
