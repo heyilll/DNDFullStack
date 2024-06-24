@@ -6,8 +6,9 @@
 A web application designed to enhance the Dungeons & Dragons experience by providing tools for campaign management, character creation, and session organization.
 
 ### Context
-D&D players and DMs often struggle to keep track of complex campaign details, character information, and game rules across multiple sessions.
-Users: D&D players and Dungeon Masters of all experience levels.
+D&D players and DMs often struggle to keep track of complex campaign details, character information, and game rules across multiple sessions, leading to unnecessary effort and time expended on managing the details from previous sessions and planning for the next session with less overall time left to play. A combination of these effects often demotivates a lot of players from starting new campaigns and causes potential DMs to view the responsibilities of a DM as daunting and something that only experienced players are able to do. This should not be the case.  
+This application aims to act as a companion to the DM by providing an easily accessible store of relevant information to the DM's campaign, such as the characters in a campaign, searching up spells and items currently being used or a quick place to write up session notes while playing.  
+All of these features help to lighten the workload on the DM and frees them to spend their time on more creative aspects of their session planning and enable users to play more D&D. The users of this app will be for D&D players and Dungeon Masters of all experience levels.
 
 ### Features
 - User Character Profiles
@@ -32,12 +33,7 @@ GET /api/campaigns - Get all campaigns (authenticated)
 POST /api/campaigns - Create a new campaign (DM only)
 GET /api/campaigns/:id - Get a specific campaign
 PUT /api/campaigns/:id - Update a campaign (DM only)
-DELETE /api/campaigns/:id - Delete a campaign (DM only)
-
-GET /api/dnd/spells - Get all spells
-GET /api/dnd/spells/:id - Get a specific spell
-GET /api/dnd/items - Get all items
-GET /api/dnd/items/:id - Get a specific item
+DELETE /api/campaigns/:id - Delete a campaign (DM only) 
 
 GET /api/characters - Get all characters for a user
 POST /api/characters - Create a new character
