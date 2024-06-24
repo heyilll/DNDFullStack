@@ -7,11 +7,13 @@ A web application designed to enhance the Dungeons & Dragons experience by provi
 
 ### Context
 D&D players and DMs often struggle to keep track of complex campaign details, character information, and game rules across multiple sessions, leading to unnecessary effort and time expended on managing the details from previous sessions and planning for the next session with less overall time left to play. A combination of these effects often demotivates a lot of players from starting new campaigns and causes potential DMs to view the responsibilities of a DM as daunting and something that only experienced players are able to do. This should not be the case.  
-This application aims to act as a companion to the DM by providing an easily accessible store of relevant information to the DM's campaign, such as the characters in a campaign, searching up spells and items currently being used or a quick place to write up session notes while playing.  
+
+This application aims to act as a companion to the DM by providing an easily accessible store of relevant information to the DM's campaign. Users will be able to access a campaign overview screen where they can see the characters in a campaign and read the session notes at a glance and search for spells and items with a search box on this page. The functionality to create and modify campaigns and characters is also provided for users to play in any number of adventures. The management of campaign details will be protected using a roles-based authentication system for the DM only. For non-DMs, this app is still useful for tracking the current state of their characters on the My Characters view of the application.    
+  
 All of these features help to lighten the workload on the DM and frees them to spend their time on more creative aspects of their session planning and enable users to play more D&D. The users of this app will be for D&D players and Dungeon Masters of all experience levels.
 
 ### Features
-- User Character Profiles
+- User Character creation
 - Campaign creation and management 
 - Character creation and management  
 - Interactive session notes  
