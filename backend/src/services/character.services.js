@@ -11,12 +11,12 @@ export const getCharactersService = async ({email, password }) => {
     }
 };
 
-export const getSpecificCharacterService = async ({email, password }) => { 
+export const getSpecificCharacterService = async ({ email, password, name }) => { 
     try { 
         if (loginUserService({email, password}) == null) {
             throw new Error("Unauthorised"); 
         } 
-        return await Character.find({ email: email }); 
+        return await Character.find({ name: name }); 
     } catch (e) {
         throw e;
     }
@@ -34,25 +34,25 @@ export const addCharacterService = async ({ location, email, password }) => {
     }
 };
 
-export const editCharacterService = async ({ location, email, password }) => {
+export const editCharacterService = async ({ id, email, password }) => {
     try {
         if (loginUserService({ email, password }) == null) {
             throw new Error("Unauthorised");
         }
-        const character = new Character({ location: location, email: email});
+        const character = new Character({ _id: id, email: email});
         return await character.save();
     } catch (e) {
         throw e;
     }
 };
 
-export const removeCharacterService = async ({ location, email, password }) => {
+export const removeCharacterService = async ({ id, email, password }) => {
     
     try {
         if (loginUserService({email, password}) == null) {
             throw new Error("Unauthorised");
         }
-        return await Character.deleteOne({location: location, email: email}); 
+        return await Character.deleteOne({ _id: id, email: email }); 
     } catch (e) {
         throw e;
     }

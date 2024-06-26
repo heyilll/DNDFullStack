@@ -1,0 +1,68 @@
+{
+  "characters": [
+    {
+      "_id": "60a3e5b9f2d1c123456789ab",
+      "name": "Aragorn",
+      "created_at": "2023-05-15T10:30:00Z",
+      "race": "Human",
+      "class": "Ranger",
+      "level": 10,
+      "user": "60a3e5b9f2d1c123456789ac",
+      "campaigns": [
+        "60a3e5b9f2d1c123456789ad",
+        "60a3e5b9f2d1c123456789ae"
+      ]
+    },
+    {
+      "_id": "60a3e5b9f2d1c123456789af",
+      "name": "Legolas",
+      "created_at": "2023-05-16T14:45:00Z",
+      "race": "Elf",
+      "class": "Fighter",
+      "level": 8,
+      "user": "60a3e5b9f2d1c123456789b0",
+      "campaigns": [
+        "60a3e5b9f2d1c123456789ad"
+      ]
+    },
+    {
+      "_id": "60a3e5b9f2d1c123456789b1",
+      "name": "Gimli",
+      "created_at": "2023-05-17T09:15:00Z",
+      "race": "Dwarf",
+      "class": "Fighter",
+      "level": 7,
+      "user": "60a3e5b9f2d1c123456789b2",
+      "campaigns": [
+        "60a3e5b9f2d1c123456789ad",
+        "60a3e5b9f2d1c123456789b3"
+      ]
+    },
+    {
+      "_id": "60a3e5b9f2d1c123456789b4",
+      "name": "Gandalf",
+      "created_at": "2023-05-18T16:20:00Z",
+      "race": "Maiar",
+      "class": "Wizard",
+      "level": 20,
+      "user": "60a3e5b9f2d1c123456789b5",
+      "campaigns": [
+        "60a3e5b9f2d1c123456789ad",
+        "60a3e5b9f2d1c123456789ae",
+        "60a3e5b9f2d1c123456789b3"
+      ]
+    },
+    {
+      "_id": "60a3e5b9f2d1c123456789b6",
+      "name": "Frodo",
+      "created_at": "2023-05-19T11:00:00Z",
+      "race": "Hobbit",
+      "class": "Rogue",
+      "level": 5,
+      "user": "60a3e5b9f2d1c123456789b7",
+      "campaigns": [
+        "60a3e5b9f2d1c123456789ad"
+      ]
+    }
+  ]
+}

@@ -3,7 +3,7 @@
 export const addUserService = async ({ email, password }) =>
 {
     try {
-        const newUser = new User(account);
+        const newUser = new User(email, password);
         return await newUser.save();
     } catch (e) {
         throw e;
