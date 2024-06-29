@@ -4,8 +4,8 @@ import express from 'express';
 
 import { connectDb } from './src/db/db.connection.js'; 
 import { CampaignRouter } from './src/routes/campaigns.routes.js';
-import { CharacterRouter } from './src/routes/characters.routes.js';
-import { AccountRouter } from './src/routes/account.routes.js';
+import { CharacterRouter } from './src/routes/characters.routes.js'; 
+import { UserRouter } from './src/routes/users.routes.js'; 
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -19,9 +19,10 @@ app.use(express.json());
 
 connectDb();
  
-app.use(`/`, AccountRouter);
-app.use(`/campaign`, CampaignRouter);
-app.use(`/character`, CharacterRouter);
+app.use(`/`, UserRouter);
+app.use(`/campaigns`, CampaignRouter);
+app.use(`/characters`, CharacterRouter); 
+
 
 const { PORT, HOST } = process.env;
 

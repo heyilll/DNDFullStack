@@ -1,58 +1,42 @@
-import { loginUserService } from "./users.services";
+import Character from "../models/character.model.js";
   
-export const getCharactersService = async ({email, password }) => { 
-    try { 
-        if (loginUserService({email, password}) == null) {
-            throw new Error("Unauthorised"); 
-        } 
-        return await Character.find({ email: email }); 
+export const getCharactersService = async ({ userId }) => { 
+    try {  
+        return await Character.find({ created_by: userId }); 
     } catch (e) {
         throw e;
     }
 };
 
-export const getSpecificCharacterService = async ({ email, password, name }) => { 
+export const getSpecificCharacterService = async ({ params, userId }) => { 
     try { 
-        if (loginUserService({email, password}) == null) {
-            throw new Error("Unauthorised"); 
-        } 
-        return await Character.find({ name: name }); 
+        return await Character.findOne({ _id: params.id, created_by: userId }); 
     } catch (e) {
         throw e;
     }
 };
 
-export const addCharacterService = async ({ location, email, password }) => {
-    try {
-        if (loginUserService({ email, password }) == null) {
-            throw new Error("Unauthorised");
-        }
-        const newCharacter = new Character({ location: location, email: email});
+export const addCharacterService = async ({ name, race, dndclass, level, created_by }) => {
+    try { 
+        const newCharacter = new Character({ name: name, race: race, class: dndclass, level: level, created_by: created_by });
         return await newCharacter.save();
     } catch (e) {
         throw e;
     }
 };
 
-export const editCharacterService = async ({ id, email, password }) => {
-    try {
-        if (loginUserService({ email, password }) == null) {
-            throw new Error("Unauthorised");
-        }
-        const character = new Character({ _id: id, email: email});
+export const editCharacterService = async ({ params, userId }) => {
+    try { 
+        const character = new Character({ _id: params.id, created_by: userId });
         return await character.save();
     } catch (e) {
         throw e;
     }
 };
 
-export const removeCharacterService = async ({ id, email, password }) => {
-    
+export const removeCharacterService = async ({ params, userId }) => { 
     try {
-        if (loginUserService({email, password}) == null) {
-            throw new Error("Unauthorised");
-        }
-        return await Character.deleteOne({ _id: id, email: email }); 
+        return await Character.deleteOne({ _id: params.id, created_by: userId }); 
     } catch (e) {
         throw e;
     }

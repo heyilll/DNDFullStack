@@ -6,7 +6,7 @@
       "created_at": "2023-05-01T09:00:00Z",
       "description": "A perilous quest to destroy an ancient artifact of immense power.",
       "dungeon_master": "Tolkien",
-      "players": "Aragorn, Legolas, Gimli, Frodo, Sam"
+      "players": ["Aragorn", "Legolas", "Gimli", "Frodo", "Sam"]
     },
     {
       "_id": "60a3e5b9f2d1c123456789ae",
@@ -14,7 +14,7 @@
       "created_at": "2023-06-15T14:30:00Z",
       "description": "An epic battle to protect the white city from the forces of darkness.",
       "dungeon_master": "Peter Jackson",
-      "players": "Gandalf, Aragorn, Faramir, Eowyn"
+      "players": ["Gandalf", "Aragorn", "Faramir", "Eowyn"]
     },
     {
       "_id": "60a3e5b9f2d1c123456789b3",
@@ -22,7 +22,7 @@
       "created_at": "2023-07-22T18:45:00Z",
       "description": "A treacherous expedition through ancient dwarven halls.",
       "dungeon_master": "Gimli",
-      "players": "Gandalf, Legolas, Boromir, Pippin, Merry"
+      "players": ["Gandalf", "Legolas", "Boromir", "Pippin", "Merry"]
     },
     {
       "_id": "60a3e5b9f2d1c123456789b8",
@@ -30,7 +30,7 @@
       "created_at": "2023-08-10T11:15:00Z",
       "description": "Rally the Rohirrim to defend their homeland against insurmountable odds.",
       "dungeon_master": "Theoden",
-      "players": "Aragorn, Legolas, Gimli, Eomer"
+      "players": ["Aragorn", "Legolas", "Gimli", "Eomer"]
     },
     {
       "_id": "60a3e5b9f2d1c123456789b9",
@@ -38,7 +38,7 @@
       "created_at": "2023-09-05T20:00:00Z",
       "description": "Uncover a sinister plot threatening the stability of Gondor.",
       "dungeon_master": "Denethor",
-      "players": "Faramir, Pippin, Beregond, Imrahil"
+      "players": ["Faramir", "Pippin", "Beregond", "Imrahil"]
     }
   ]
 }

@@ -1,13 +1,11 @@
-import { addCharacterService, editCharacterService, getCharactersService, getSpecificCharacterService, removeCharacterService } from "../services/character.services";
-
+import { addCharacterService, editCharacterService, getCharactersService, getSpecificCharacterService, removeCharacterService } from "../services/character.services.js";
  
-
 export const getCharactersController = async (req, res) => { 
     const invalidError = new Error("Invalid request"); 
     
     try {
         if (!req) throw invalidError;
-        const characters = await getCharactersService(req.body); 
+        const characters = await getCharactersService(req); 
         res.status(200).send(characters);
     }
     catch (e) {
@@ -20,7 +18,7 @@ export const getSpecificCharacterController = async (req, res) => {
     
     try {
         if (!req) throw invalidError;
-        const characters = await getSpecificCharacterService(req.body); 
+        const characters = await getSpecificCharacterService(req); 
         res.status(200).send(characters);
     }
     catch (e) {
@@ -59,7 +57,7 @@ export const removeCharacterController = async (req, res) => {
 
     try {
         if (!req) throw invalidError;
-        const character = await removeCharacterService(req.body);
+        const character = await removeCharacterService(req);
         res.status(201).send({ message: `Success`, character });
     }
     catch (e) {

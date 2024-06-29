@@ -1,4 +1,4 @@
-import { addCampaignService, editCampaignService, getCampaignsService, getSpecificCampaignService, removeCampaignService } from "../services/campaign.service";
+import { addCampaignService, editCampaignService, getCampaignsService, getSpecificCampaignService, removeCampaignService } from "../services/campaign.service.js";
 
 
 export const getCampaignsController = async (req, res) => { 
@@ -6,7 +6,7 @@ export const getCampaignsController = async (req, res) => {
     
     try {
         if (!req) throw invalidError;
-        const campaigns = await getCampaignsService(req.body); 
+        const campaigns = await getCampaignsService(req); 
         res.status(200).send(campaigns);
     }
     catch (e) {
@@ -19,7 +19,7 @@ export const getSpecificCampaignController = async (req, res) => {
     
     try {
         if (!req) throw invalidError;
-        const campaign = await getSpecificCampaignService(req.body); 
+        const campaign = await getSpecificCampaignService(req); 
         res.status(200).send(campaign);
     }
     catch (e) {
@@ -58,7 +58,7 @@ export const removeCampaignController = async (req, res) => {
 
     try {
         if (!req) throw invalidError;
-        const campaign = await removeCampaignService(req.body);
+        const campaign = await removeCampaignService(req);
         res.status(201).send({ message: `Success`, campaign });
     }
     catch (e) {

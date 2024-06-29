@@ -1,58 +1,42 @@
-import { loginUserService } from "./users.services";
+import Campaign from "../models/campaign.model.js";
   
-export const getCampaignsService = async ({email, password }) => { 
+export const getCampaignsService = async ({ userId }) => { 
     try { 
-        if (loginUserService({email, password}) == null) {
-            throw new Error("Unauthorised"); 
-        } 
-        return await Campaign.find({ email: email }); 
+        return await Campaign.find({ created_by: userId }); 
     } catch (e) {
         throw e;
     }
 };
 
-export const getSpecificCampaignService = async ({email, password, id }) => { 
-    try { 
-        if (loginUserService({email, password}) == null) {
-            throw new Error("Unauthorised"); 
-        } 
-        return await Campaign.find({ email: email, id: id }); 
+export const getSpecificCampaignService = async ({ params, userId }) => { 
+    try {  
+        return await Campaign.findOne({ _id: params.id, created_by: userId });
     } catch (e) {
         throw e;
     }
 };
 
-export const addCampaignService = async ({ location, email, password }) => {
-    try {
-        if (loginUserService({ email, password }) == null) {
-            throw new Error("Unauthorised");
-        }
-        const newCampaign = new Campaign({ location: location, email: email});
+export const addCampaignService = async ({ name, description, dungeon_master, created_by, players }) => {
+    try { 
+        const newCampaign = new Campaign({ name: name, description: description, dungeon_master: dungeon_master, created_by: created_by, players: players});
         return await newCampaign.save();
     } catch (e) {
         throw e;
     }
 };
 
-export const editCampaignService = async ({ id, email, password }) => {
-    try {
-        if (loginUserService({ email, password }) == null) {
-            throw new Error("Unauthorised");
-        }
-        const campaign = new Campaign({ _id: id, email: email});
+export const editCampaignService = async ({ params, userId }) => {
+    try { 
+        const campaign = new Campaign({ _id: params.id, created_by: userId });
         return await campaign.save();
     } catch (e) {
         throw e;
     }
 };
 
-export const removeCampaignService = async ({ id, email, password }) => {
-    
-    try {
-        if (loginUserService({email, password}) == null) {
-            throw new Error("Unauthorised");
-        }
-        return await Campaign.deleteOne({ _id: id, email: email }); 
+export const removeCampaignService = async ({ params, userId }) => { 
+    try { 
+        return await Campaign.deleteOne({ _id: params.id, created_by: userId }); 
     } catch (e) {
         throw e;
     }

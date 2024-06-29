@@ -1,6 +1,7 @@
 import { useState } from "react"; 
 import accService from "../services/account.service.js" 
-import { Link } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom";    
+import ErrorMessage from "./ErrorMessage.jsx";
 
 function Login() {  
     const currUser = accService.getCurrentUser()?.user;  
@@ -8,17 +9,25 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState(""); 
     const [errorMessage, setErrorMessage] = useState(false); 
+    const navigate = useNavigate();
 
     const sendLogin = async (e) => {
         e.preventDefault(); 
-
-        const res = await accService.loginService({ email: email, password: password });  
-        if (res.status === 200) {  
-            localStorage.setItem("currentUser", JSON.stringify(res.data)); 
-            window.location.reload(); 
-        } else {
+        setErrorMessage(false);
+        try {
+            const res = await accService.loginService({ email: email, password: password });
+            
+            if (res.status === 200) { 
+                navigate(`/myview`);
+            } else {
+                console.error("Login failed");
+                setErrorMessage(true);
+            }
+        } catch (error) {
+            console.error("Error during login: ", error);
             setErrorMessage(true);
         }
+        
         setEmail("");
         setPassword("");
     }; 
@@ -39,9 +48,12 @@ function Login() {
             )}
             {!currUser && (
                 <>
-                <form onSubmit={sendLogin }>
-                    <div>
-                        <label htmlFor="email">Email: </label>
+                  <div className="container flex-column bg-white p-5 my-4 form-border">
+                    <h1 style={{ color: "#001450" }}>Login</h1>
+                    <form onSubmit={sendLogin } method="post">
+                    <div className="mb-3">
+                        <label className="form-label"htmlFor="email">
+                            Email: </label>
                         <input
                             type="email"
                             name="email"
@@ -54,8 +66,10 @@ function Login() {
                             required
                         />
                     </div>
-                    <div>
-                        <label htmlFor="password">Password: </label>
+                    <div className="mb-3">
+                        <label className="form-label px-0" htmlFor="password">Password: 
+                                    
+                        </label>
                         <input
                             type="password"
                             name="password"
@@ -67,12 +81,14 @@ function Login() {
                             }
                             required
                         />
-                    </div>
-                    <div>
-                        <input type="submit" value="Login" />
                     </div> 
+                    <button type="submit" className="btn btn-primary button-primary">
+                    Submit
+                    </button>
+                    {errorMessage && <ErrorMessage message={'Try again.'}/> }
                 </form>
-                <Link to='../register' >Register</Link> 
+                <Link to='../register' >Register</Link>  
+                </div>   
                 </>
             )}
         </>

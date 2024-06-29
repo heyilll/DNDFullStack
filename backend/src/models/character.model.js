@@ -6,8 +6,7 @@ const characterSchema = new mongoose.Schema({
     race: { type: String, required: true },
     class: { type: String, required: true },
     level: { type: Number, required: true, min: 1 },
-    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    campaigns: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Campaign' }],
+    created_by: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true } 
 });
 
 const Character = mongoose.model(`Character`, characterSchema);
