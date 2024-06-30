@@ -25,10 +25,12 @@ export const addCharacterService = async ({ name, race, dndclass, level, created
     }
 };
 
-export const editCharacterService = async ({ params, userId }) => {
+export const editCharacterService = async ({ params, userId, updateData }) => {
     try { 
-        const character = new Character({ _id: params.id, created_by: userId });
-        return await character.save();
+        const character = Character.findOneAndUpdate({ _id: params.id, created_by: userId }, updateData,
+            { new: true, runValidators: true });
+        if (!character) throw new Error(`Campaign not found`);
+        return character;
     } catch (e) {
         throw e;
     }

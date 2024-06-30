@@ -25,10 +25,12 @@ export const addCampaignService = async ({ name, description, dungeon_master, cr
     }
 };
 
-export const editCampaignService = async ({ params, userId }) => {
+export const editCampaignService = async ({ params, userId, updateData }) => {
     try { 
-        const campaign = new Campaign({ _id: params.id, created_by: userId });
-        return await campaign.save();
+        const campaign = Campaign.findOneAndUpdate({ _id: params.id, created_by: userId }, updateData,
+            { new: true, runValidators: true });
+        if (!campaign) throw new Error(`Campaign not found`);
+        return campaign;
     } catch (e) {
         throw e;
     }

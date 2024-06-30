@@ -21,14 +21,27 @@ export const loginUserService = async ({ email, password }) =>
     try { 
         const user = await User.findOne({ email: email });  
 
-        const passwordIsValid = bcrypt.compareSync(password, user.password)
+        const passwordIsValid = bcrypt.compareSync(password, user.password) 
         if (user && !passwordIsValid) {  
             return null;
-        } else {
-            console.log(true)
+        } else { 
             return user;
         } 
     } catch (e) {
         throw e;
     }
+};
+
+export const editPasswordService = async ({ userId, body }) =>
+{ 
+    try {  
+        const newPassword = body.newPassword;
+        const user = await User.findOneAndUpdate({ _id: userId }, { password: bcrypt.hashSync(newPassword, 8)},
+            { new: true, runValidators: true }); 
+
+        if (!user) throw new Error(`User not found`);
+        return user;
+    } catch (e) {
+        throw e;
+    } 
 };

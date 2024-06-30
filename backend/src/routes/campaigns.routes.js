@@ -14,7 +14,7 @@ router.use((req, res, next) => {
 router.route(`/:id`)
     .get([authJwt.verifyToken], getSpecificCampaignController)
     .delete([authJwt.verifyToken], removeCampaignController)
-    .put([authJwt.verifyToken], editCampaignController);    
+    .patch([authJwt.verifyToken], editCampaignController);    
    
 router.route(`/`)
     .get([authJwt.verifyToken], getCampaignsController)

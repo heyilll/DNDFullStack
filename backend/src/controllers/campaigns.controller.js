@@ -45,7 +45,7 @@ export const editCampaignController = async (req, res) => {
 
     try {
         if (!req) throw invalidError;
-        const campaign = await editCampaignService(req.body);
+        const campaign = await editCampaignService(req);
         res.status(201).send({ message: `Success`, campaign });
     }
     catch (e) {

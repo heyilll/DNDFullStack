@@ -48,12 +48,13 @@ function MyView( ) {
                         <p className="col-12 text-center fs-1 fw-bold text-light " >My User Info</p>  
                         <Link to={`../users/${user._id}`} className=" text-bg-info col-12 col-md-6 col-lg-4"> 
                             <p className="col-12 text-center fs-1 fw-bold text-light " > Logged in as: {user.username}</p> 
-                        </Link>
+                    </Link>
+                    <Link to='../changePassword' className="btn btn-primary">Change Password</Link> 
                     </div> 
                 </>}     
         <div className=' text-bg-info col-12 text-bg-danger d-flex flex-column justify-content-center align-items-center'>
             <p className="col-12 text-center fs-1 fw-bold text-light " >My Campaigns</p> 
-            {!campaigns && <p>Not logged in</p>}    
+            {!campaigns && <p>No campaigns found</p>}    
             {campaigns && campaigns.map((campaign) => (
                 <CampaignCards key={campaign._id} campaign={campaign}> 
                 </CampaignCards>
@@ -62,7 +63,7 @@ function MyView( ) {
         </div> 
         <div className=' text-bg-info col-12 text-bg-dark d-flex flex-column justify-content-center align-items-center'>
             <p className="col-12 text-center fs-1 fw-bold text-light " >My Characters</p> 
-            {!characters && <p>Not logged in</p>}     
+            {!characters && <p>No characters found</p>}     
             {characters && characters.map((character) => (
                 <CharacterCards key={character._id} character={character}> 
                 </CharacterCards>

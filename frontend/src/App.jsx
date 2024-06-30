@@ -11,24 +11,9 @@ import UserProfile from './components/UserProfile.jsx';
 import MyView from './components/MyView.jsx';
 import AddCharacter from './components/AddCharacter.jsx';
 import AddCampaign from './components/AddCampaign.jsx';
-import accService from './services/account.service.js';
-import { useEffect } from 'react';
+import ChangePassword from './components/ChangePassword.jsx'; 
 
-const App = () => {  
-
-    // useEffect(() => {
-    //     const user = accService.getCurrentUser();
-
-    //     if (user) {
-    //         setCurrentUser(user);
-    //         setShowModeratorBoard(user.roles.includes(`ROLE_MODERATOR`));
-    //         setShowAdminBoard(user.roles.includes(`ROLE_ADMIN`));
-    //     }
-    // }, []);
-
-    // const logOut = () => {
-    //     accService.logout();
-    // }
+const App = () => {   
     
     return (
         <div className='app'>
@@ -59,6 +44,10 @@ const App = () => {
                         path="/login"
                         element={<Login />}
                     />  
+                    <Route
+                        path="/changePassword"
+                        element={<ChangePassword />}
+                    />
                     <Route
                         path="/register"
                         element={<Register />}

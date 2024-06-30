@@ -1,5 +1,6 @@
 import axios from "axios";
 import authHeader from "./authHeader"; 
+import { isUppercase } from "validator";
 
 const registerService = async ({username, email, password}) => {
     try {
@@ -33,13 +34,11 @@ const loginService = async ({ email, password }) => {
     }
 }
 
-const editPasswordService = async ({ email, password, newpassword }) => {
+const editPasswordService = async ({ newPassword }) => {
     try {
-        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/changePassword`, {
-            email: email,
-            password: password,
-            newpassword: newpassword
-        }); 
+        const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/changePassword`, { 
+            newPassword: newPassword
+        }, { headers: authHeader() }); 
         return response;
     } catch (e) {
         return e;
@@ -82,6 +81,15 @@ const addCampaignService = async ({ name, description, dungeon_master, created_b
 const removeCampaignService = async (id) => { 
     try {
         const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/campaigns/${id}`, { headers: authHeader() });
+        return response;
+    } catch (e) {
+        return e;
+    }
+}
+
+const editCampaignService = async (id, updateData) => { 
+    try {
+        const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/campaigns/${id}`, updateData, { headers: authHeader() });
         return response;
     } catch (e) {
         return e;
@@ -131,6 +139,26 @@ const removeCharacterService = async (id) => {
     }
 }
 
+const editCharacterService = async (id, updateData) => {
+    try {
+        const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/campaigns/${id}`, updateData,  { headers: authHeader() });
+        return response;
+    } catch (e) {
+        return e;
+    }
+}
+
+const addCharacterToCampaignService = async (id, characterId) => {
+    try {
+        const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/campaigns/${id}`, { 
+            $push: { players: characterId } 
+        },  { headers: authHeader() });
+        return response;
+    } catch (e) {
+        return e;
+    }
+}
+
 const logout = () => {
     //Cookies.remove('token');
     localStorage.removeItem(`currentUser`); 
@@ -150,10 +178,13 @@ const accService = {
     getSpecificCampaignService,
     addCampaignService,
     removeCampaignService,
+    editCampaignService,
     getCharactersService,
     getSpecificCharactersService,
     addCharacterService,
-    removeCharacterService
+    removeCharacterService,
+    editCharacterService,
+    addCharacterToCampaignService
 };
 
 export default accService;

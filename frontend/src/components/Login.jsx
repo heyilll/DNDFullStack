@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "./ErrorMessage.jsx";
 
 function Login() {  
-    const currUser = accService.getCurrentUser()?.user;  
+    const currUser = accService.getCurrentUser();  
     
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState(""); 

@@ -44,7 +44,7 @@ export const editCharacterController = async (req, res) => {
 
     try {
         if (!req) throw invalidError;
-        const character = await editCharacterService(req.body);
+        const character = await editCharacterService(req);
         res.status(201).send({ message: `Success`, character });
     }
     catch (e) {

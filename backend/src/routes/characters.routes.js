@@ -14,7 +14,7 @@ router.use((req, res, next) => {
 router.route(`/:id`)
     .get([authJwt.verifyToken], getSpecificCharacterController)
     .delete([authJwt.verifyToken], removeCharacterController)
-    .put([authJwt.verifyToken], editCharacterController);    
+    .patch([authJwt.verifyToken], editCharacterController);    
    
 router.route(`/`)
     .get([authJwt.verifyToken], getCharactersController)
