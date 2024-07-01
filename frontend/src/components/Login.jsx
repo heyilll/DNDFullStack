@@ -48,47 +48,65 @@ function Login() {
             )}
             {!currUser && (
                 <>
-                  <div className="container flex-column bg-white p-5 my-4 form-border">
-                    <h1 style={{ color: "#001450" }}>Login</h1>
-                    <form onSubmit={sendLogin } method="post">
-                    <div className="mb-3">
-                        <label className="form-label"htmlFor="email">
-                            Email: </label>
-                        <input
-                            type="email"
-                            name="email"
-                            id="email"
-                            placeholder="you@domain.com"
-                            value={email}
-                            onChange={(e) =>
-                                setEmail(e.target.value)
-                            }
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label px-0" htmlFor="password">Password: 
-                                    
-                        </label>
-                        <input
-                            type="password"
-                            name="password"
-                            id="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) =>
-                                setPassword(e.target.value)
-                            }
-                            required
-                        />
-                    </div> 
-                    <button type="submit" className="btn btn-primary button-primary">
-                    Submit
-                    </button>
-                    {errorMessage && <ErrorMessage message={'Try again.'}/> }
-                </form>
-                <Link to='../register' >Register</Link>  
-                </div>   
+                  <div className="container">
+  <div className="row justify-content-center">
+    <div className="col-md-6">
+      <div className="card shadow-lg my-5">
+        <div className="card-body p-5">
+          <h1 className="text-center mb-4" style={{ color: "#001450" }}>Login</h1>
+          
+          <form onSubmit={sendLogin} method="post">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="email">Email</label>
+              <div className="input-group">
+                <span className="input-group-text"><i className="fas fa-envelope"></i></span>
+                <input
+                  type="email"
+                  className="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="you@domain.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="mb-4">
+              <label className="form-label" htmlFor="password">Password</label>
+              <div className="input-group">
+                <span className="input-group-text"><i className="fas fa-lock"></i></span>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="d-grid">
+              <button type="submit" className="btn btn-primary btn-lg">
+                Login
+              </button>
+            </div>
+            
+            {errorMessage && <ErrorMessage message={'Try again.'} />}
+          </form>
+          
+          <div className="mt-4 text-center">
+            <p>Don't have an account? <Link to='../register'>Register here</Link></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
                 </>
             )}
         </>

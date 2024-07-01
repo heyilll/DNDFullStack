@@ -86,9 +86,9 @@ describe('Testing requests on database', () => {
             const findOneAndUpdateStub = sinon.stub(User, "findOneAndUpdate");
             findOneAndUpdateStub.resolves(testUser); 
             const userId = testUser._id;
-            const newPassword = "new";
+            const body = {newPassword: "new"};
 
-            const result = await editPasswordService({userId, newPassword});
+            const result = await editPasswordService({userId, body});
 
 
             expect(findOneAndUpdateStub.calledOnce).to.be.true;  
@@ -99,10 +99,10 @@ describe('Testing requests on database', () => {
             const findOneAndUpdateStub = sinon.stub(User, "findOneAndUpdate");
             findOneAndUpdateStub.throws(error); 
             const userId = testUser._id;
-            const newPassword = "new";
+            const body = {newPassword: "new"};
 
             try { 
-                const result = await editPasswordService({userId, newPassword}); 
+                const result = await editPasswordService({userId, body}); 
                 assert.fail("It should have thrown an error.")
             } catch (err) {
                 expect(err).to.equal(error);

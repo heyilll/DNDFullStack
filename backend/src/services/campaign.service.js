@@ -16,18 +16,18 @@ export const getSpecificCampaignService = async ({ params, userId }) => {
     }
 };
 
-export const addCampaignService = async ({ name, description, dungeon_master, created_by, players }) => {
+export const addCampaignService = async ({ name, description, dungeon_master, created_by }) => {
     try { 
-        const newCampaign = new Campaign({ name: name, description: description, dungeon_master: dungeon_master, created_by: created_by, players: players});
+        const newCampaign = new Campaign({ name: name, description: description, dungeon_master: dungeon_master, created_by: created_by });
         return await newCampaign.save();
     } catch (e) {
         throw e;
     }
 };
 
-export const editCampaignService = async ({ params, userId, updateData }) => {
+export const editCampaignService = async ({ params, userId, body }) => {
     try { 
-        const campaign = Campaign.findOneAndUpdate({ _id: params.id, created_by: userId }, updateData,
+        const campaign = Campaign.findOneAndUpdate({ _id: params.id, created_by: userId }, body,
             { new: true, runValidators: true });
         if (!campaign) throw new Error(`Campaign not found`);
         return campaign;

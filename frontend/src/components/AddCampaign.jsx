@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import accService from "../services/account.service";
+import campaignService from "../services/campaigns.service";
 import { useNavigate } from "react-router-dom";
 
 const AddCampaign = () => {
   const [campaignName, setCampaignName] = useState("");
-  const [campaignDescription, setCampaignDescription] = useState(""); 
-  const [campaignPlayers, setCampaignPlayers] = useState(""); 
+  const [campaignDescription, setCampaignDescription] = useState("");  
   const [user, setUser] = useState([]);
 
   const navigate = useNavigate();  
@@ -22,11 +22,10 @@ const AddCampaign = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await accService.addCampaignService({
+      const res = await campaignService.addCampaignService({
         name: campaignName,
         description: campaignDescription,
         dungeon_master: user.username, 
-        players: campaignPlayers,
         created_by: user.id
       });
       console.log(res);
@@ -47,59 +46,54 @@ const AddCampaign = () => {
       {!user && <p>Not logged in</p>}
       {user &&
         <>
-          <div className="container flex-column bg-white p-5 my-4 form-border">
-            <h1 style={{ color: "#001450" }}>Add a Campaign</h1>
-            <form onSubmit={handleSubmit} method="post">
-              <div className="mb-3">
-                <label htmlFor="name" className="form-label">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  className="form-control"
-                  placeholder="Your Campaign Name"
-                  value={campaignName}
-                  onChange={(e) => setCampaignName(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="description" className="form-label px-0">
-                  Description
-                </label>
-                <input
-                  type="text"
-                  id="description"
-                  name="description"
-                  className="form-control"
-                  placeholder="Enter your Campaign description"
-                  value={campaignDescription}
-                  onChange={(e) => setCampaignDescription(e.target.value)}
-                  required
-                />
-              </div> 
-              <div className="mb-3">
-                <label htmlFor="players" className="form-label px-0">
-                  Campaign Players
-                </label>
-                <input
-                  type="text"
-                  id="players"
-                  name="players"
-                  className="form-control"
-                  placeholder="Enter your Campaign Players"
-                  value={campaignPlayers}
-                  onChange={(e) => setCampaignPlayers(e.target.value)}
-                  required
-                />
-              </div>  
-              <button type="submit" className="btn btn-primary button-primary">
-                Submit
+          <div className="container py-5">
+  <div className="row justify-content-center">
+    <div className="col-md-8 col-lg-6">
+      <div className="card shadow-lg border-0">
+        <div className="card-body p-5">
+          <h1 className="text-center mb-4" style={{ color: "#001450" }}>Create Your Campaign</h1>
+          <form onSubmit={handleSubmit} method="post">
+            <div className="mb-4">
+              <label htmlFor="name" className="form-label">
+                Campaign Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="form-control form-control-lg"
+                placeholder="Enter your campaign name"
+                value={campaignName}
+                onChange={(e) => setCampaignName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="description" className="form-label">
+                Campaign Description
+              </label>
+              <textarea
+                id="description"
+                name="description"
+                className="form-control form-control-lg"
+                placeholder="Describe your campaign"
+                value={campaignDescription}
+                onChange={(e) => setCampaignDescription(e.target.value)}
+                required
+                rows="4"
+              ></textarea>
+            </div>  
+            <div className="d-grid">
+              <button type="submit" className="btn btn-primary btn-lg">
+                Create Campaign
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
         </>}
 
     </>

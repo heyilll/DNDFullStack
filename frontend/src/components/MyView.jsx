@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import accService from "../services/account.service"; 
+import campaignService from "../services/campaigns.service";
+import characterService from "../services/characters.service";
 import { Link } from "react-router-dom";
 import CharacterCards from "./CharacterCards";
 import CampaignCards from "./CampaignCards";
@@ -17,12 +19,12 @@ function MyView( ) {
         }; 
 
         const fetchCampaigns = async () => {
-            const data = await accService.getCampaignsService(); 
+            const data = await campaignService.getCampaignsService(); 
             setCampaigns(data); 
         }; 
 
         const fetchCharacters = async () => {
-            const data = await accService.getCharactersService(); 
+            const data = await characterService.getCharactersService(); 
             setCharacters(data);
             setLoading(false);
         };
@@ -37,40 +39,49 @@ function MyView( ) {
     } 
 
     return (
-        <div className="d-flex flex-column mx-auto col-12 text-bg-dark align-items-center" >
+        <div className="container-fluid bg-dark text-light py-5">
             {!user && <p>Not logged in</p>}
             {user &&
-                <>
-                    <div className='title'>
-                        <h1 className="col-12 text-center fs-1 fw-bold text-light" >My View</h1>  
-                    </div> 
-                    <div className='text-bg-info col-12 d-flex flex-column justify-content-center align-items-center'>
-                        <p className="col-12 text-center fs-1 fw-bold text-light " >My User Info</p>  
-                        <Link to={`../users/${user._id}`} className=" text-bg-info col-12 col-md-6 col-lg-4"> 
-                            <p className="col-12 text-center fs-1 fw-bold text-light " > Logged in as: {user.username}</p> 
-                    </Link>
-                    <Link to='../changePassword' className="btn btn-primary">Change Password</Link> 
-                    </div> 
-                </>}     
-        <div className=' text-bg-info col-12 text-bg-danger d-flex flex-column justify-content-center align-items-center'>
-            <p className="col-12 text-center fs-1 fw-bold text-light " >My Campaigns</p> 
-            {!campaigns && <p>No campaigns found</p>}    
-            {campaigns && campaigns.map((campaign) => (
-                <CampaignCards key={campaign._id} campaign={campaign}> 
-                </CampaignCards>
-            ))}
-            <Link to="/addCampaign" className="btn btn-primary">Create new campaign</Link>    
-        </div> 
-        <div className=' text-bg-info col-12 text-bg-dark d-flex flex-column justify-content-center align-items-center'>
-            <p className="col-12 text-center fs-1 fw-bold text-light " >My Characters</p> 
-            {!characters && <p>No characters found</p>}     
-            {characters && characters.map((character) => (
-                <CharacterCards key={character._id} character={character}> 
-                </CharacterCards>
-            ))} 
-            <Link to="/addCharacter" className="btn btn-primary ">Create new character</Link>    
-        </div>  
-    </div>
+            <>
+                <h1 className="text-center mb-5">My View</h1>
+    
+                <section className="bg-primary rounded p-4 mb-5">
+                    <h2 className="text-center mb-4">My User Info</h2>
+                    <div className="d-flex flex-column align-items-center">
+                        <Link to={`../users/${user._id}`} className="text-light text-decoration-none mb-3">
+                            <p className="fs-5 mb-0">Logged in as: <strong>{user.username}</strong></p>
+                        </Link>
+                        <Link to='../changePassword' className="btn btn-light">Change Password</Link>
+                    </div>
+                </section>
+            </>}     
+            <section className="bg-danger rounded p-4 mb-5">
+                <h2 className="text-center mb-4" >My Campaigns</h2> 
+                    {!campaigns && <p className="text-center">No campaigns found</p>}
+                <div className="row g-4">  
+                    {campaigns && campaigns.map((campaign) => (
+                        <div key={campaign._id} className="col-md-6 col-lg-4">
+                            <CampaignCards key={campaign._id} campaign={campaign} /> 
+                        </div>
+                    ))}
+                </div>  
+                <div className="text-center mt-4">
+                    <Link to="/addCampaign" className="btn btn-light">Create new campaign</Link>
+                </div>
+            </section>
+            <section className="bg-info rounded p-4">
+                <h2 className="text-center mb-4" >My Characters</h2> 
+                {!characters && <p className="text-center">No characters found</p>}     
+                {characters && characters.map((character) => (
+                    <div key={character._id} className="col-md-6 col-lg-4">
+                        <CharacterCards key={character._id} character={character} /> 
+                    </div>
+                ))} 
+                <div className="text-center mt-4">
+                    <Link to="/addCharacter" className="btn btn-light">Create new character</Link>
+                </div>  
+            </section> 
+        </div>
     );
 }
 

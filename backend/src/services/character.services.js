@@ -8,9 +8,9 @@ export const getCharactersService = async ({ userId }) => {
     }
 };
 
-export const getSpecificCharacterService = async ({ params, userId }) => { 
+export const getSpecificCharacterService = async ({ params }) => { 
     try { 
-        return await Character.findOne({ _id: params.id, created_by: userId }); 
+        return await Character.findOne({ _id: params.id }); 
     } catch (e) {
         throw e;
     }
@@ -25,9 +25,9 @@ export const addCharacterService = async ({ name, race, dndclass, level, created
     }
 };
 
-export const editCharacterService = async ({ params, userId, updateData }) => {
+export const editCharacterService = async ({ params, userId, body }) => {
     try { 
-        const character = Character.findOneAndUpdate({ _id: params.id, created_by: userId }, updateData,
+        const character = Character.findOneAndUpdate({ _id: params.id, created_by: userId }, body,
             { new: true, runValidators: true });
         if (!character) throw new Error(`Campaign not found`);
         return character;

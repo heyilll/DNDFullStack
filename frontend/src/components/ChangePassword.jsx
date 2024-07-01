@@ -40,30 +40,42 @@ function ChangePassword() {
             )}
             {currUser && (
                 <>
-                  <div className="container flex-column bg-white p-5 my-4 form-border">
-                    <h1 style={{ color: "#001450" }}>Change Password</h1>
-                    <form onSubmit={handleSubmit } method="patch"> 
-                    <div className="mb-3">
-                        <label className="form-label px-0" htmlFor="password">New Password: 
-                        </label>
-                        <input
-                            type="password"
-                            name="newpassword"
-                            id="newpassword"
-                            placeholder="New Password"
-                            value={newPassword}
-                            onChange={(e) =>
-                                setNewPassword(e.target.value)
-                            }
-                            required
-                        />
-                    </div> 
-                    <button type="submit" className="btn btn-primary button-primary">
-                    Submit
+                    <div className="container">
+  <div className="row justify-content-center">
+    <div className="col-md-6">
+      <div className="card shadow-lg my-5">
+        <div className="card-body p-5">
+          <h1 className="text-center mb-4" style={{ color: "#001450" }}>Change Password</h1>
+          
+          <form onSubmit={handleSubmit} method="patch">
+            <div className="mb-3">
+              <label className="form-label" htmlFor="password">New Password:</label>
+              <div className="input-group">
+                <span className="input-group-text"><i className="fas fa-envelope"></i></span>
+                <input
+                  type="password"
+                  className="form-control"
+                  id="newpassword"
+                  name="newpassword"
+                  placeholder="New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  required
+                />
+                </div>
+                <div className="d-grid">
+                    <button type="submit" className="btn btn-primary btn-lg">
+                        Login
                     </button>
-                    {errorMessage && <ErrorMessage message={'Try again.'}/> }
-                </form>  
-                </div>   
+                </div> 
+                {errorMessage && <ErrorMessage message={'Try again.'} />}
+                </div>
+          </form>        
+            </div>
+            </div>   
+            </div>   
+            </div>   
+            </div>   
                 </>
             )}
         </>

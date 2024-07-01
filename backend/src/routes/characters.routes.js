@@ -12,7 +12,7 @@ router.use((req, res, next) => {
 });
 
 router.route(`/:id`)
-    .get([authJwt.verifyToken], getSpecificCharacterController)
+    .get(getSpecificCharacterController)
     .delete([authJwt.verifyToken], removeCharacterController)
     .patch([authJwt.verifyToken], editCharacterController);    
    
