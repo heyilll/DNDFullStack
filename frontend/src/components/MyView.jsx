@@ -57,7 +57,7 @@ function MyView( ) {
             </>}     
             <section className="bg-danger rounded p-4 mb-5">
                 <h2 className="text-center mb-4" >My Campaigns</h2> 
-                    {!campaigns && <p className="text-center">No campaigns found</p>}
+                {!campaigns && <p className="text-center">No campaigns found</p>}
                 <div className="row g-4">  
                     {campaigns && campaigns.map((campaign) => (
                         <div key={campaign._id} className="col-md-6 col-lg-4">
@@ -69,14 +69,16 @@ function MyView( ) {
                     <Link to="/addCampaign" className="btn btn-light">Create new campaign</Link>
                 </div>
             </section>
-            <section className="bg-info rounded p-4">
+            <section className="bg-success rounded p-4">
                 <h2 className="text-center mb-4" >My Characters</h2> 
-                {!characters && <p className="text-center">No characters found</p>}     
-                {characters && characters.map((character) => (
-                    <div key={character._id} className="col-md-6 col-lg-4">
-                        <CharacterCards key={character._id} character={character} /> 
-                    </div>
-                ))} 
+                {!characters && <p className="text-center">No characters found</p>} 
+                <div className="row g-4">  
+                    {characters && characters.map((character) => (
+                        <div key={character._id} className="col-md-6 col-lg-4">
+                            <CharacterCards key={character._id} character={character} /> 
+                        </div>
+                    ))}
+                </div>    
                 <div className="text-center mt-4">
                     <Link to="/addCharacter" className="btn btn-light">Create new character</Link>
                 </div>  

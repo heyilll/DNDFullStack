@@ -1,6 +1,11 @@
-import { render } from '@testing-library/react';
-import Footer from '../src/components/Footer';
+import { render, screen } from '@testing-library/react';
+import Footer from '../src/components/Footer.jsx';
+import { describe, test, expect } from 'vitest';
 
-test(`Footer matches snapshot`, () => {
-  expect(render(<Footer />)).toMatchSnapshot();
+describe('Footer Component', () => {
+    test('renders the footer with correct text', () => {
+        render(<Footer />);
+        const footerElement = screen.getByText('© 2024 DFCorp');
+        expect(footerElement).toBeInTheDocument();
+    }); 
 });

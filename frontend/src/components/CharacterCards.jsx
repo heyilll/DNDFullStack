@@ -30,6 +30,10 @@ function CharacterCards({ character }) {
         useEffect(() => { 
             const fetchCharacter = async () => {
                 const data = await characterService.getSpecificCharactersService(character); 
+                if (data.name == null) {
+                    handleRemoveFromCam(character);
+                    return;
+                }
                 setThisCharacter(data); 
                 setLoading(false);
             };   
@@ -39,7 +43,7 @@ function CharacterCards({ character }) {
 
         if (loading) {
             return <div>Loading...</div>;
-        }  
+        }
 
         return (  
             <>

@@ -41,10 +41,15 @@ function Login() {
     return (
         <>
             {currUser && (
-                <>
-                    <p>User is logged in with email: {currUser.email}</p>
-                    <button onClick={ sendLogout }>Logout</button>
-                </>
+                <div className="user-status">
+                  <p className="user-info">
+                    User is logged in with email: <span className="user-email">{currUser.email}</span>
+                  </p>
+                  <button className="logout-button" onClick={sendLogout}>
+                    <span className="logout-icon">🚪</span>
+                    Logout
+                  </button>
+                </div>
             )}
             {!currUser && (
                 <>
@@ -100,7 +105,7 @@ function Login() {
           </form>
           
           <div className="mt-4 text-center">
-            <p>Don't have an account? <Link to='../register'>Register here</Link></p>
+            <Link to='../register'>Register here</Link> 
           </div>
         </div>
       </div>

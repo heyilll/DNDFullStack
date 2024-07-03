@@ -3,6 +3,8 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import CharacterCards from "./CharacterCards";
+import MonsterSearch from "./MonsterSearch";
+import SpellSearch from "./SpellSearch";
 
 function CampaignView({}) {
     const { id } = useParams();
@@ -55,27 +57,28 @@ function CampaignView({}) {
 
                         <div className="card bg-info text-light mb-5">
                             <div className="card-body">
-                            <h2 className="h4 mb-3">Campaign Details</h2>
-                            <p className="mb-2"><strong>Dungeon Master:</strong> {campaign.dungeon_master}</p>
-                            <p className="mb-0"><strong>Description:</strong> {campaign.description}</p>
+                                <h2 className="h4 mb-3">Campaign Details</h2>
+                                <p className="mb-2"><strong>Dungeon Master:</strong> {campaign.dungeon_master}</p>
+                                <p className="mb-0"><strong>Description:</strong> {campaign.description}</p>
                             </div>
                         </div>
 
                         <div className="card bg-secondary text-light mb-5">
                             <div className="card-body">
-                            <h2 className="h4 mb-3">Notes</h2>
-                            <textarea className="form-control bg-dark text-light" id="campaignNotes" rows="6" placeholder="Write your campaign notes here..."></textarea>
+                                <h2 className="h4 mb-3">Notes</h2>
+                                <textarea className="form-control bg-dark text-light" id="campaignNotes" rows="6" placeholder="Write your campaign notes here..."></textarea>
                             </div>
-                        </div>
-
+                        </div> 
+                        <MonsterSearch /> 
+                        <SpellSearch /> 
                         <div className="card bg-danger text-light mb-5">
                             <div className="card-body">
                             <h2 className="h4 mb-3">Players</h2>
-                                {!campaign.players && <p>No players</p>} 
+                                {!campaign.players || campaign.players.length == 0 && <p>No players added</p>} 
                                 <div className="row g-4">
                                     {campaign.players && campaign.players.map((characterId) => (
                                         <div key={characterId} className="col-md-6 col-lg-4">
-                                        <CharacterCards key={characterId} character={characterId} /> 
+                                            <CharacterCards key={characterId} character={characterId} /> 
                                         </div>
                                     ))}
                                 </div> 

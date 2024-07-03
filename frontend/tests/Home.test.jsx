@@ -12,7 +12,7 @@ describe("Home page tests", () => {
   });
 
   it("should render Tell me about... ", async () => {
-    const homeHeading = screen.getByText("Build your next campaign");
+    const homeHeading = screen.getByText("Build Your Next Campaign");
     expect(homeHeading).toBeInTheDocument();
   });
 });
