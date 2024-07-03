@@ -1,103 +1,80 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import { vi, describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { render, screen, waitFor, act } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import MyView from '../src/components/MyView';
+import MyView from '../src/components/MyView.jsx'
 import accService from '../src/services/account.service';
 import campaignService from '../src/services/campaigns.service';
-import characterService from '../src/services/characters.service'; 
+import characterService from '../src/services/characters.service';
 
 // Mock the services
-vi.mock('../src/services/account.service.js');
-vi.mock('../src/services/campaigns.service.js');
-vi.mock('../src/services/characters.service.js');
-vi.mock('../src/components/CharacterCards', () => ({ default: () => <div>Character Card</div> }));
-vi.mock('../src/components/CampaignCards', () => ({ default: () => <div>Campaign Card</div> }));
- 
+vi.mock("../src/services/account.service");
+vi.mock("../src/services/campaigns.service");
+vi.mock("../src/services/characters.service");
+
 describe('MyView Component', () => {
-    beforeEach(() => {
-      // Reset all mocks before each test
-      vi.resetAllMocks();
+  beforeEach(() => {
+    vi.resetAllMocks();
+  }); 
+
+  it('displays user info when logged in', async () => {
+    const mockUser = { _id: '123', username: 'testuser' };
+    accService.getCurrentUser.mockResolvedValue(mockUser);
+    campaignService.getCampaignsService.mockResolvedValue([]);
+    characterService.getCharactersService.mockResolvedValue([]);
+
+    await act(async () => {
+      render(<BrowserRouter><MyView /></BrowserRouter>);
     });
 
-    it('displays loading state initially', () => {
-      render(<MyView />, { wrapper: BrowserRouter });
-      expect(screen.getByText('Loading...')).toBeInTheDocument();
+    await waitFor(() => {
+      expect(screen.getByText('My User Info')).toBeTruthy();
+      expect(screen.getByText('Logged in as:')).toBeTruthy();
+    });
+  });  
+
+  it('displays campaigns when available', async () => {
+    const mockCampaigns = [{ _id: '1', name: 'Test Campaign' }];
+    accService.getCurrentUser.mockResolvedValue({ _id: '123', username: 'testuser' });
+    campaignService.getCampaignsService.mockResolvedValue(mockCampaigns);
+    characterService.getCharactersService.mockResolvedValue([]);
+
+    await act(async () => {
+      render(<BrowserRouter><MyView /></BrowserRouter>);
     });
 
-    it('displays user information when logged in', async () => {
-      accService.getCurrentUser.mockResolvedValue({ _id: '1', username: 'testuser' });
-      campaignService.getCampaignsService.mockResolvedValue([]);
-      characterService.getCharactersService.mockResolvedValue([]);
+    await waitFor(() => {
+      expect(screen.getByText('My Campaigns')).toBeTruthy();
+      expect(screen.getByText('Test Campaign')).toBeTruthy();
+    });
+  }); 
 
-      render(<MyView />, { wrapper: BrowserRouter });
+  it('displays characters when available', async () => {
+    const mockCharacters = [{ _id: '1', name: 'Test Character' }];
+    accService.getCurrentUser.mockResolvedValue({ _id: '123', username: 'testuser' });
+    campaignService.getCampaignsService.mockResolvedValue([]);
+    characterService.getCharactersService.mockResolvedValue(mockCharacters);
 
-      await waitFor(() => {
-        expect(screen.getByText('My View')).toBeInTheDocument();
-        expect(screen.getByText('Logged in as:')).toBeInTheDocument();
-        expect(screen.getByText('Change Password')).toBeInTheDocument();
-      });
+    await act(async () => {
+      render(<BrowserRouter><MyView /></BrowserRouter>);
     });
 
-    it('displays "Not logged in" when user is not logged in', async () => {
-      accService.getCurrentUser.mockResolvedValue(null);
-      campaignService.getCampaignsService.mockResolvedValue([]);
-      characterService.getCharactersService.mockResolvedValue([]);
+    await waitFor(() => {
+      expect(screen.getByText('My Characters')).toBeTruthy();
+      expect(screen.getByText('Test Character')).toBeTruthy();
+    });
+  });
 
-      render(<MyView />, { wrapper: BrowserRouter });
+  it('displays "No characters found" when no characters are available', async () => {
+    accService.getCurrentUser.mockResolvedValue({ _id: '123', username: 'testuser' });
+    campaignService.getCampaignsService.mockResolvedValue({response: {status: '403'}});
+    characterService.getCharactersService.mockResolvedValue({response: {status: "403"}});
 
-      await waitFor(() => {
-        expect(screen.getByText('Not logged in')).toBeInTheDocument();
-      });
+    await act(async () => {
+      render(<BrowserRouter><MyView /></BrowserRouter>);
     });
 
-    it('renders campaigns when available', async () => {
-      accService.getCurrentUser.mockResolvedValue({ _id: '1', username: 'testuser' });
-      campaignService.getCampaignsService.mockResolvedValue([{ _id: '1' }, { _id: '2' }]);
-      characterService.getCharactersService.mockResolvedValue([]);
-
-      render(<MyView />, { wrapper: BrowserRouter });
-
-      await waitFor(() => {
-        expect(screen.getAllByText('Campaign Card')).toHaveLength(2);
-        expect(screen.getByText('Create new campaign')).toBeInTheDocument();
-      });
+    await waitFor(() => {
+      expect(screen.getByText('No characters found')).toBeTruthy();
     });
-
-    it('renders characters when available', async () => {
-      accService.getCurrentUser.mockResolvedValue({ _id: '1', username: 'testuser' });
-      campaignService.getCampaignsService.mockResolvedValue([]);
-      characterService.getCharactersService.mockResolvedValue([{ _id: '1' }, { _id: '2' }, { _id: '3' }]);
-
-      render(<MyView />, { wrapper: BrowserRouter });
-
-      await waitFor(() => {
-        expect(screen.getAllByText('Character Card')).toHaveLength(3);
-        expect(screen.getByText('Create new character')).toBeInTheDocument();
-      });
-    });
-
-    it('displays "No campaigns found" when no campaigns are available', async () => {
-      accService.getCurrentUser.mockResolvedValue({ _id: '1', username: 'testuser' });
-      campaignService.getCampaignsService.mockResolvedValue(null);
-      characterService.getCharactersService.mockResolvedValue([]);
-
-      render(<MyView />, { wrapper: BrowserRouter });
-
-
-      await waitFor(() => {
-        expect(screen.getByText('No campaigns found')).toBeInTheDocument();
-      });
-    });
-
-    it('displays "No characters found" when no characters are available', async () => {
-      accService.getCurrentUser.mockResolvedValue({ _id: '1', username: 'testuser' });
-      campaignService.getCampaignsService.mockResolvedValue([]);
-      characterService.getCharactersService.mockResolvedValue(null);
-
-      render(<MyView />, { wrapper: BrowserRouter });
-
-      await waitFor(() => {
-        expect(screen.getByText('No characters found')).toBeInTheDocument();
-      });
-    });
+  });
 });

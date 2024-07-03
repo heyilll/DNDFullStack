@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function Home() { 
     return (
-        <div className="container-fluid py-5 bg-light">
+        <div className="container-fluid py-5 bg-white">
             <div className="row g-4 justify-content-center">
                 <div className="col-md-8 col-lg-6">
                     <div className="card bg-primary text-white mb-4 hover-effect">

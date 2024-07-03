@@ -24,7 +24,8 @@
     "dev": "nodemon index.js",
     "coverage": "c8 -t html npm test",
     "test": "mocha --timeout 10000 --exit",
-    "test-win": "mocha --timeout 10000 --exit"
+    "test-win": "mocha --timeout 10000 --exit",
+    "render-build":"npm install && npm run start"
   },
   "type": "module"
 }

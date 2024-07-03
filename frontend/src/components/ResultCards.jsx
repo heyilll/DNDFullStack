@@ -1,21 +1,51 @@
 function ResultCards({ result, format }) {
     if (format == "monster") {
         return (
-            <div className="card bg-info text-white text-decoration-none mb-3 hover-effect">
-                <div className="card-body p-4">
-                    <h3 className="card-title text-center mb-0">
-                    {result.name}
-                    </h3>
+            <div className="card shadow-sm mb-4 col-12 col-md-6 col-lg-4">
+                <div className="card-body">
+                    <h5 className="card-title text-primary">{result.name}</h5>
+                    <p className="card-text">{result.desc}</p>
+                    <ul className="list-group list-group-flush mt-3">
+                        <li className="list-group-item">
+                            <strong>Size:</strong> {result.size}
+                        </li>
+                        <li className="list-group-item">
+                            <strong>Alignment:</strong> {result.alignment}
+                        </li>
+                        <li className="list-group-item">
+                            <strong>Type:</strong> {result.type}
+                        </li>
+                        <li className="list-group-item">
+                            <strong>Armor className:</strong> {result.armor_class}
+                        </li>
+                        <li className="list-group-item">
+                            <strong>Challenge Rating:</strong> {result.challenge_rating}
+                        </li>
+                    </ul>
                 </div>
-            </div>
-        ); 
+            </div> 
+        ) 
     } else if (format == "spell") {
         return (
-            <div className="card bg-info text-white text-decoration-none mb-3 hover-effect">
-                <div className="card-body p-4">
-                    <h3 className="card-title text-center mb-0">
-                    {result.name}
-                    </h3>
+            <div className="card shadow-sm mb-4 col-12 col-md-6 col-lg-4">
+                <div className="card-body">
+                    <h5 className="card-title text-primary">{result.name}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">{result.level} Spell</h6>
+                    <p className="card-text">{result.desc}</p>
+                    <ul className="list-group list-group-flush mt-3">
+                        <li className="list-group-item">
+                            <strong>Casting Time:</strong> {result.casting_time}
+                        </li>
+                        <li className="list-group-item">
+                            <strong>Duration:</strong> {result.duration}
+                        </li>
+                        <li className="list-group-item">
+                            <strong>className:</strong> {result.dnd_class}
+                        </li>
+                        <li className="list-group-item">
+                            <strong>Components:</strong> {result.components}
+                        </li>
+                    </ul>
                 </div>
             </div>
         ); 

@@ -33,7 +33,7 @@ function MonsterSearch({ }) {
                 required
               />
             </div> 
-            <div className="mb-4">
+            <div className="mb-4 d-flex overflow-auto">
             {results && results.map((result) =>
                 <ResultCards key={result.slug} result={result} format={"monster"} />)}   
             </div>

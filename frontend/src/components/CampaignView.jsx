@@ -9,6 +9,7 @@ import SpellSearch from "./SpellSearch";
 function CampaignView({}) {
     const { id } = useParams();
     const [campaign, setCampaign] = useState([]); 
+    const [campaignNotes, setCampaignNotes] = useState("");
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     
@@ -16,6 +17,7 @@ function CampaignView({}) {
         const fetchCampaign = async () => {
             const data = await campaignService.getSpecificCampaignService(id); 
             setCampaign(data);  
+            setCampaignNotes(data.notes);
             setLoading(false); 
         }; 
 
@@ -29,18 +31,36 @@ function CampaignView({}) {
     const handleRemove = async (e) => {
         e.preventDefault();
         try {
-        const res = await campaignService.removeCampaignService(id);
-        console.log(res);
+            const res = await campaignService.removeCampaignService(id);
+            console.log(res);
 
-        if (res.status === 201) {
-            navigate("/myview");
-            console.log(`Removed successfully`);
-        } else {
-            console.log("Removal failed");
-        }
-        } catch (error) {
-            console.log(error);
-        }
+            if (res.status === 201) {
+                navigate("/myview");
+                console.log(`Removed successfully`);
+            } else {
+                console.log("Removal failed");
+            }
+            } catch (error) {
+                console.log(error);
+            }
+    };
+
+    const handleSave = async (e) => {
+        e.preventDefault();
+        try {
+            const res = await campaignService.editCampaignService(id, {
+                notes: campaignNotes
+            });
+            console.log(res);
+
+            if (res.status === 201) { 
+                console.log(`Saved successfully`);
+            } else {
+                console.log("Saving failed");
+            }
+            } catch (error) {
+                console.log(error);
+            }
     };
 
     return (
@@ -65,8 +85,13 @@ function CampaignView({}) {
 
                         <div className="card bg-secondary text-light mb-5">
                             <div className="card-body">
-                                <h2 className="h4 mb-3">Notes</h2>
-                                <textarea className="form-control bg-dark text-light" id="campaignNotes" rows="6" placeholder="Write your campaign notes here..."></textarea>
+                                <form onSubmit={handleSave} method="patch">
+                                    <h2 className="h4 mb-3">Notes</h2>
+                                    <textarea className="form-control bg-dark text-light" id="campaignNotes" rows="6" value={campaignNotes} onChange={(e) => setCampaignNotes(e.target.value) } ></textarea>
+                                    <button type="submit" className="btn btn-primary btn-lg mt-3">
+                                        Save
+                                    </button>
+                                </form>
                             </div>
                         </div> 
                         <MonsterSearch /> 

@@ -15,32 +15,40 @@ function MyView( ) {
     useEffect(() => {
         const fetchUser = async () => {
             const data = await accService.getCurrentUser(); 
-            setUser(data); 
+            setUser(data);  
         }; 
 
         const fetchCampaigns = async () => {
             const data = await campaignService.getCampaignsService(); 
-            setCampaigns(data); 
+            if (data.response?.status == "403") {
+                setCampaigns(null);
+            } else {
+                setCampaigns(data);
+            } 
         }; 
 
         const fetchCharacters = async () => {
             const data = await characterService.getCharactersService(); 
-            setCharacters(data);
+            if (data.response?.status == "403") {
+                setCharacters(null);
+            } else {
+                setCharacters(data);
+            }  
             setLoading(false);
-        };
-
+        }; 
+    
         fetchUser();
         fetchCampaigns();
         fetchCharacters(); 
     }, []); 
-    
+ 
     if (loading) {
         return <div>Loading...</div>;
     } 
-
+ 
     return (
         <div className="container-fluid bg-dark text-light py-5">
-            {!user && <p>Not logged in</p>}
+            { !user || user.length == 0 && <p>Not logged in</p>}
             {user &&
             <>
                 <h1 className="text-center mb-5">My View</h1>
@@ -59,7 +67,7 @@ function MyView( ) {
                 <h2 className="text-center mb-4" >My Campaigns</h2> 
                 {!campaigns && <p className="text-center">No campaigns found</p>}
                 <div className="row g-4">  
-                    {campaigns && campaigns.map((campaign) => (
+                    {campaigns && campaigns.length !== 0  && campaigns.map((campaign) => (
                         <div key={campaign._id} className="col-md-6 col-lg-4">
                             <CampaignCards key={campaign._id} campaign={campaign} /> 
                         </div>
@@ -73,7 +81,7 @@ function MyView( ) {
                 <h2 className="text-center mb-4" >My Characters</h2> 
                 {!characters && <p className="text-center">No characters found</p>} 
                 <div className="row g-4">  
-                    {characters && characters.map((character) => (
+                    {characters && characters.length !== 0 && characters.map((character) => (
                         <div key={character._id} className="col-md-6 col-lg-4">
                             <CharacterCards key={character._id} character={character} /> 
                         </div>
