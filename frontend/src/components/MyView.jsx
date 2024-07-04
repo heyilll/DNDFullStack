@@ -15,12 +15,14 @@ function MyView( ) {
     useEffect(() => {
         const fetchUser = async () => {
             const data = await accService.getCurrentUser(); 
-            setUser(data);  
+            setUser(data); 
+            setLoading(false);
         }; 
 
         const fetchCampaigns = async () => {
             const data = await campaignService.getCampaignsService(); 
-            if (data.response?.status == "403") {
+            console.log(data.response)
+            if (data.response) {
                 setCampaigns(null);
             } else {
                 setCampaigns(data);
@@ -29,12 +31,11 @@ function MyView( ) {
 
         const fetchCharacters = async () => {
             const data = await characterService.getCharactersService(); 
-            if (data.response?.status == "403") {
+            if (data.response) {
                 setCharacters(null);
             } else {
                 setCharacters(data);
-            }  
-            setLoading(false);
+            }
         }; 
     
         fetchUser();
