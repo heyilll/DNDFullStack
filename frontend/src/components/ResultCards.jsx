@@ -16,7 +16,7 @@ function ResultCards({ result, format }) {
                             <strong>Type:</strong> {result.type}
                         </li>
                         <li className="list-group-item">
-                            <strong>Armor className:</strong> {result.armor_class}
+                            <strong>Armor Class:</strong> {result.armor_class}
                         </li>
                         <li className="list-group-item">
                             <strong>Challenge Rating:</strong> {result.challenge_rating}
@@ -40,7 +40,7 @@ function ResultCards({ result, format }) {
                             <strong>Duration:</strong> {result.duration}
                         </li>
                         <li className="list-group-item">
-                            <strong>className:</strong> {result.dnd_class}
+                            <strong>Classes:</strong> {result.dnd_class}
                         </li>
                         <li className="list-group-item">
                             <strong>Components:</strong> {result.components}
